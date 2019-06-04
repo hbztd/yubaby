@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.yubaby.dao.home.MomChangeDao">
+  <resultMap id="BaseResultMap" type="com.example.yubaby.pojo.home.MomChange">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="week" jdbcType="INTEGER" property="week" />
+    <result column="mom_article" jdbcType="VARCHAR" property="momArticle" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="body_change" jdbcType="VARCHAR" property="bodyChange" />
+    <result column="psy_change" jdbcType="VARCHAR" property="psyChange" />
+    <result column="prm_change" jdbcType="VARCHAR" property="prmChange" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, week, mom_article, content, body_change, psy_change, prm_change
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mom_change
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mom_change
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.yubaby.pojo.home.MomChange" useGeneratedKeys="true">
+    insert into mom_change (week, mom_article, content, 
+      body_change, psy_change, prm_change
+      )
+    values (#{week,jdbcType=INTEGER}, #{momArticle,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{bodyChange,jdbcType=VARCHAR}, #{psyChange,jdbcType=VARCHAR}, #{prmChange,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.yubaby.pojo.home.MomChange" useGeneratedKeys="true">
+    insert into mom_change
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="week != null">
+        week,
+      </if>
+      <if test="momArticle != null">
+        mom_article,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="bodyChange != null">
+        body_change,
+      </if>
+      <if test="psyChange != null">
+        psy_change,
+      </if>
+      <if test="prmChange != null">
+        prm_change,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="week != null">
+        #{week,jdbcType=INTEGER},
+      </if>
+      <if test="momArticle != null">
+        #{momArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyChange != null">
+        #{bodyChange,jdbcType=VARCHAR},
+      </if>
+      <if test="psyChange != null">
+        #{psyChange,jdbcType=VARCHAR},
+      </if>
+      <if test="prmChange != null">
+        #{prmChange,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.yubaby.pojo.home.MomChange">
+    update mom_change
+    <set>
+      <if test="week != null">
+        week = #{week,jdbcType=INTEGER},
+      </if>
+      <if test="momArticle != null">
+        mom_article = #{momArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyChange != null">
+        body_change = #{bodyChange,jdbcType=VARCHAR},
+      </if>
+      <if test="psyChange != null">
+        psy_change = #{psyChange,jdbcType=VARCHAR},
+      </if>
+      <if test="prmChange != null">
+        prm_change = #{prmChange,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.yubaby.pojo.home.MomChange">
+    update mom_change
+    set week = #{week,jdbcType=INTEGER},
+      mom_article = #{momArticle,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      body_change = #{bodyChange,jdbcType=VARCHAR},
+      psy_change = #{psyChange,jdbcType=VARCHAR},
+      prm_change = #{prmChange,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getList" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from mom_change
+    limit #{start, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}
+  </select>
+</mapper>

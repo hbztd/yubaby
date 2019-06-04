@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.yubaby.dao.me.BabyInfoDao">
+  <resultMap id="BaseResultMap" type="com.example.yubaby.pojo.me.BabyInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="day" jdbcType="DATE" property="day" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, u_id, `type`, `day`, sex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from baby_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from baby_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.yubaby.pojo.me.BabyInfo" useGeneratedKeys="true">
+    insert into baby_info (u_id, `type`, `day`, 
+      sex)
+    values (#{uId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{day,jdbcType=DATE}, 
+      #{sex,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.yubaby.pojo.me.BabyInfo" useGeneratedKeys="true">
+    insert into baby_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="day != null">
+        `day`,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="day != null">
+        #{day,jdbcType=DATE},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.yubaby.pojo.me.BabyInfo">
+    update baby_info
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="day != null">
+        `day` = #{day,jdbcType=DATE},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.yubaby.pojo.me.BabyInfo">
+    update baby_info
+    set u_id = #{uId,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=TINYINT},
+      `day` = #{day,jdbcType=DATE},
+      sex = #{sex,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from baby_info
+    where u_id = #{uid,jdbcType=INTEGER}
+  </select>
+</mapper>
